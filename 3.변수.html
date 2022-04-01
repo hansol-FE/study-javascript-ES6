@@ -1,0 +1,79 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <meta http-equiv="X-UA-Compatible" content="IE=edge">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Document</title>
+</head>
+<body>
+  <script>
+    var 변수형태1 = 'kim';
+
+    let 변수형태2 = 'kim';
+
+    const 변수형태3 = 'kim';
+
+    function 함수(){
+      var 이름1 = 'kim'; // function 안에서만 존재함
+    }
+
+    if(true){
+      let 이름2 = 'kim';
+      const 이름3 = 'kim';
+    }
+
+    for (let i = 0; i>0; i++) {
+
+    }
+
+    /* 
+      변수 특징)
+      선언, 할당, 범위
+      var : 재선언O, 재할당O, 사용범위 function
+      let : 재선언X, 재할당O, 사용범위 {}
+      const : 재선언X, 재할당X(그러나 오브젝트 내부값은 재할당 가능), 사용범위 {}
+    */
+
+    Object.freeze(변수형태3); //절대 변경 안됨
+
+
+
+
+    /* 
+      변수의 호이스팅 현상)
+      변수의 선언을 변수 범위 맨위로 끌고오는 현상.
+      변수를 만나면 선언부분을 강제로 스크립트 맨위로 끌어올림
+    */
+
+    console.log(나이); // undefined, 에러는 안뜸
+    var 나이 = 30; // var 나이; 가 스크립트 젤 위로 끌어올려짐
+    console.log(나이); // 30
+
+
+
+
+    /* 
+      전역변수 : 모든 곳에서 쓸 수 있는 변수
+    */
+
+    var 전역변수형태1 = 20;
+    window.전역변수형태2 = '김';
+
+    function 함수1(){
+      console.log(전역변수1);
+      console.log(window.전역변수형태2);
+    }
+    함수1();
+
+
+    /* 
+      함수의 호이스팅 현상)
+      function 함수(){} : 익명함수는 정부 상단에 호이스팅됨
+      var 함수 = function(){} : var 함수; 선언부분만 호이스팅됨
+    */
+
+  </script>
+
+</body>
+</html> 

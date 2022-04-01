@@ -1,0 +1,64 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <meta http-equiv="X-UA-Compatible" content="IE=edge">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Document</title>
+</head>
+<body>
+  <button id="버튼">버튼</button>
+  <script>
+    function 함수형태1(){
+
+    }
+    var 함수형태2 = function(){
+
+    }
+    var 함수형태3 = () => {
+
+    }
+
+    var 기계1 = (a) => {
+      return a;
+    }
+
+
+    /* 
+      함수를 쓰는 이유)
+      1. 코드들을 기능으로 묶고 싶을때 
+      2. 입출력하는 기계를 만들고 싶을때
+      
+      화살표 함수 장점)
+      1. 입출력 기계 만들 때 보기쉬움
+      2. 파라미터 1개면 소괄호 생략가능 
+      3. 코드 한줄이면 중괄호도 생략가능
+      
+      즉, 직관적이다.
+    */
+
+    [1,2,3,4].forEach(function(data){
+      console.log(data);
+    })
+    [1,2,3,4].forEach(data=>console.log(data) );
+
+    document.getElementById('버튼').addEventListener('click',(e) =>{
+      console.log(this);//window, 문제점 : 화살표함수 내부의 this는 바깥에 있던 this값을 가져와서 그대로 사용
+
+      //이벤트리스너는 화살표함수로 안쓰는게 좋음. 
+    })
+
+    var 오브젝트1 = {
+      함수형태1 : function(){
+        console.log(this); // 오브젝트1
+      },
+      함수형태2(){
+        console.log(this); // 오브젝트1
+      },
+      함수형태3 : () => {
+        console.log(this); // window
+      }
+    }
+  </script>
+</body>
+</html> 

@@ -1,0 +1,122 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <meta http-equiv="X-UA-Compatible" content="IE=edge">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Document</title>
+</head>
+<body>
+  <div>
+  </div>
+
+  <button id="버튼">버튼</button>
+  <script>
+    'use strict' /* 상단에 선언하면 자바스크립트를 엄격하게 쓰게 해준다. */
+
+    console.log(this); //window객체
+
+    function 함수(){
+      console.log(this);////window객체 , 스트릭모드에서는 undefined
+    }
+    함수();
+    /* 
+      1. this : 그냥쓰거나 일반함수 안에 쓰면 window 객체 
+    */
+
+
+    var 오브젝트1 = {
+      data : 'kim',
+      함수 : function(){
+        console.log(this); //오브젝트1 객체
+      }
+    }
+    오브젝트.data; // Kim
+    오브젝트.함수();
+
+
+    var 오브젝트2 = {
+      data : {
+        함수1 : function(){
+          console.log(this); //오브젝트2.data 객체
+        },
+        함수2(){
+          console.log(this); //오브젝트2.data 객체
+        }
+      }
+    }
+    오브젝트2.data.함수1();
+    오브젝트2.data.함수2();
+    /* 
+      2. this: 오브젝트 내 함수안에서 쓰면 그 함수를 가지고 있는 오브젝트를 뜻함.
+    */
+
+    var 오브젝트3 = {
+      data: {
+        함수 : ()=>{ // 화살표 함수라면?
+          console.log(this);//window객체
+        }
+      }
+    }
+    /* 
+      예외)
+      화살표함수 특징
+      arrow function의 경우 함수 안에서 this 뜻이 재정의되지 않고 바깥에 있던 this를 사용합니다. 
+    */
+
+
+    /* 
+      자바스크립트 특징)
+      함수나 변수를 전역공간에 만들면 {window}에 보관됨.
+      window : {
+        전역함수(){
+          console.log();
+        }
+      }
+      window.전역변수;
+      window.전역함수();
+      
+      즉 1번 2번 this는 나를 담고있는 오브젝트를 나타냄
+    */
+
+
+    function 기계(){//오브젝트 생성 기계
+      this.이름 = 'kim';
+    }
+    var 오브젝트4 = new 기계();
+    /* 
+      3. this : 기계안에서 쓰면 새로 생성되는 오브젝트를 뜻함
+    */
+
+
+
+    document.getElementById('버튼').addEventListener('click',function(e){
+      console.log(this); // e.currentTarget =>지금 이벤트가 동작하는곳
+
+      var 어레이 = [1,2,3];
+      어레이.forEach(function(data){//콜백함수: 함수안에 함수를 콜백함수라고함.
+        console.log(data);
+        console.log(this); // window객체, 어디에 포함되어있는 함수가 아니므로 엄연히 전역함수
+      })
+    })
+    /* 
+      4. this : 이벤트리스너안에서 쓰면 지금 이벤트가 동작하는곳을 뜻함
+    */
+
+
+    var 오브젝트5 = {
+      이름들 : ['김', '이', '박'],
+      함수 :  function(){
+        console.log(this); // 오브젝트5 
+        오브젝트.이름들.forEach(function(data){
+          console.log(this);// window객체
+        })
+        오브젝트.이름들.forEach(()=>{
+          console.log(this);// 오브젝트5
+        })
+      }
+    }
+    오브젝트5.함수();
+  </script>
+</body>
+</html> 
