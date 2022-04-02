@@ -1,0 +1,43 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <meta http-equiv="X-UA-Compatible" content="IE=edge">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Document</title>
+</head>
+<body>
+  <script>
+    /* 
+      backquote문자열 장점)
+      1. 엔터키 가능
+      2. 중간중간 변수 넣기 쉬움
+    */
+    var 문자1 = '손흥민';
+    var 문자2 = `안녕하세요 ${문자1} 입니다.`;
+
+  
+
+    /* 
+      tagged literal)
+      함수 + backquote문자열 : 문자조작이 쉬움
+    */
+
+    function 함수(){
+      return 10;
+    }
+    함수`안녕하세요 ${문자1} 입니다.`;
+
+    function 해체분석기(문자들,변수1,변수2){
+      console.log(문자들); // ${}양옆 문자들을 Array화 해줌
+      console.log(변수1); // 앞에 있는 ${문자1}
+      console.log(변수2); // 뒤에 있는 ${문자1}
+
+      console.log(문자들[1] + 변수1 + 문자들[0]); // 입니다손흥민안녕하세요
+    }
+
+    해체분석기`안녕하세요 ${문자1} 입니다. ${문자1}`; 
+
+  </script>
+</body>
+</html>
