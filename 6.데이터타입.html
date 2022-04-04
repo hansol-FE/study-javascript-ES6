@@ -1,0 +1,70 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <meta http-equiv="X-UA-Compatible" content="IE=edge">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Document</title>
+</head>
+<body>
+  <script>
+    /* 
+      Primitive 데이터 타입)
+      그냥 문자와 숫자는 primitive data type
+      변수에 값이 그대로 저장됨 
+
+      특징)
+      원본을 수정해도 복사본에 반영안됨.
+
+    */
+
+    var 변수1 = 1234;
+    
+    var 이름1 = '김';
+    var 이름2 = 이름1; // 이름1 복사
+    이름1 = '박'; // 이름1을 바꿔도 이름2는 수정 안됨. '김'출력 
+    
+    
+    /*  
+      Refurence 데이터 타입)
+      Array,Object는 변수에 값이 저장이 안된다.
+      변수에 reference가 저장된다.
+
+      특징)
+      원본을 수정하면 복사본에 반영됨.화살표가 가리키는 메모리 공간이 똑같기때문.
+      복사할 때 등호로 복사하면 안좋음.
+    */
+   
+    var 어레이1 = [1,2,3]; // [1,2,3]이 저쪽에 있어요.라는 화살표가 변수에 담김
+    
+    var 이름3 = { name : 'Kim'};
+    var 이름4 = 이름3; // 이름3 복사, {name:'Park'} 출력
+    이름3.name = 'Park'; // 이름3을 수정하면 이름4도 수정됨
+
+
+
+    var name1 = {name : '김'};
+    var name2 = {name : '김'};
+    name1 == name2 // false
+
+
+    function 변경(obj){// 오브젝트를 재할당 해주는 함수
+      obj = {name : '박'}; 
+    }
+    변경(name1); //{name : '김} 출력됨. 재할당 안됨.
+
+    /* 
+      실패이유?
+      변경함수에 들어온 파라미터는 새로운 변수를 생성하는것과 마찬가지이다.
+      그 새로운 변수에 오브젝트를 할당해 준것인데..
+      따라서 변경(name1); 이라는 함수실행은
+      변경(var obj = name1);을 실행하는 것과 마찬가지이다.
+      즉 화살표(참조주소)를 obj에 복사한 것 뿐.
+      그런데 obj = {name : '박'}; 로 새로운 오브젝트를 할당했기때문에
+      새로운 오브젝트의 화살표가 obj로 재할당 된것일 뿐이다.
+    */
+
+  </script>
+  
+</body>
+</html>
