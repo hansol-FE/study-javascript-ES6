@@ -1,0 +1,87 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <meta http-equiv="X-UA-Compatible" content="IE=edge">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Document</title>
+</head>
+<body>
+  <script>
+    /* 
+      Spread Oprator)
+      ...
+      용도 : 뭔가 내용물을 빼고 싶을 때 사용
+
+      1.Array에 붙이면 대괄호를 제거해줌
+      2.문자에 붙이면 문자가 펼쳐짐
+      3. Array 합치기/복사에 유용
+      4. 독립적인 어레이 복사 가능(Array Deep copy)
+      5. Object에 붙이면 중괄호 제거해줌
+      6. 오브젝트 합치기(Object Deep copy)
+
+    */
+
+    var 어레이 = ['hello' , 'world'];
+    console.log(...어레이);
+
+    var 문자 = 'hello';
+    console.log(...문자);
+
+    var a = [1,2,3];
+    var b = [4,5];
+    var c = [...a,...b];
+
+    var d= [1,2,3];
+    var e = d; // 덩달아 4도 추가됨 , 그냥 등호로 어레이 복사하면 값을 공유함.
+    var f = [...d]; // 1,2,3 만 복사됨
+    d[3]=4; //추가
+
+    var o1 = {a:1, b:2};
+    var o2 = {...o1, c:3}; // 합치기
+    var o3 = o2; // 등호로 복사하면 안됨
+    var o3 = {...o2};
+    var 중복1 = {a:1,a:2};
+    var 중복2={a:3, ...중복1}; // a:1이됨. 그냥 가장 뒤에 있는값으로 적용
+    
+    
+
+    /* 
+      Spread Operator 활용방법)
+      자바스크립트 내장함수
+      1.apply 함수 : 함수를 옮겨와서 실행해줌. 파라미터를 array형태로 집어넣기가능
+      2.call 함수 : apply랑 비슷하지만, 파라미터를 array형태로 집어넣기 불가능
+      
+    
+    */
+
+    function 더하기(a,b,c){
+      console.log(a+b+c);
+    }
+    더하기(1,2,3);
+
+    // 함수 파라미터에 어레이 넣을때
+    var 어레이2 = [10,20,30];
+    더하기(어레이[0],어레이[1],어레이[2]); // 주먹구구식
+    더하기.apply(undefined, 어레이); //옛날방식
+    더하기(...어레이); // 요즘방식
+
+
+    var person = {
+      인사 : function(){
+        console.log(this.name + ' 안녕');
+      }
+    }
+    person.인사();
+
+    var person2 = {
+      name : '손흥민'
+    }
+    //person2.인사(); 를 쓰고싶으면
+    person.인사.apply(person2, [1,2]);//손흥민 안녕
+
+    person.인사.call(person2 ,1,2);
+  </script>
+  
+</body>
+</html>
