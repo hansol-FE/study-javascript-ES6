@@ -1,0 +1,98 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <meta http-equiv="X-UA-Compatible" content="IE=edge">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Document</title>
+</head>
+<body>
+  <script>
+    /* 
+      객체지향 문법 1
+      constructor 문법의 용도)
+      = object 복사 기계, 생성자 함수
+      object를 마구 복사하고 싶을 때 사용.
+      즉 비슷한 object를 손쉽게 만들고 싶다.
+      일반 함수와 다르다는것을 알리기위해 첫글자는 대문자로 씀
+
+      
+
+    */
+
+    var 사람 = {name : '김'};
+    var 사람2 = 사람; // 이렇게 복사하면 안됨
+
+
+    //학생 출석부를 만들어보자
+    var 학생 = {
+      name : '김' , 
+      age : 15,
+      sayHi : function(){
+        console.log("안녕하세요 " + this.name + " 입니다."); 
+      }
+    };
+
+
+    function Student(name){
+      this.name = name;
+      this.age = 15;
+      this.sayHi = function(){
+        console.log("안녕하세요 " + this.name + " 입니다.");
+      }
+
+      //여기서 사용되는 this는 새로생성되는 object를 뜻하므로 인스턴스라고한다.
+    }
+
+    var 학생2 = new Student('Park');
+    학생2.sayHi();
+
+
+    /* 
+      프로토타입)
+      유전자. 또는 원형.
+      자바스크립트에만 있는 상속이라는 행위는 구현하기 위해 만들어진 장치.
+      생성자함수를 만들면 프로토타입이라는 공간이 자동으로 생긴다.
+      프로토타입에 값을 추가하면 모든 자식들이 물려받기 쌉가능.
+
+      동작원리)
+      학생3.gender이라고 치면 학생1이 gender가지고 있는지 검사함
+      없으면 학생1의 부모 유전자가 gender를 가지고 있는지 검사함
+
+      특징)
+      1.함수에만 몰래 생성됨.
+      2. 내 부모 유전자(부모의 프로토타입)를 검사하고 싶으면 __proto__
+      3. __proto__를 이용해 부모님 강제 등록하기 
+      4. 콘솔창에서 알려주는 프로토타입 chain = > 타고 가다보면 최종 보스 부모는 Object function 
+    */
+
+    Student.prototype.gender = '여자';
+
+    var 학생3 = new Student('Lee');
+    console.log(학생3.gender);
+
+    var 부모 = {name : 'kim'};
+    var 자식 = {};
+    자식.__proto__ = 부모; // 나의 유전자는 이걸로 해주세요~ , 잘안씀
+    자식.name;
+
+
+
+    /* 
+      내장함수 toString()
+      => Array나 Object를 글자로 바꿔준다.
+      
+      동작원리)
+      학생1은 toString()이라는 함수를 가지고 있지 않지만
+      부모 프로토타입에 기본 내장함수를 다 가지고 있기떄문에 자식도 사용가능함.
+      
+    */
+    학생3.toString();
+    학생3.sort();
+
+
+
+
+  </script>
+</body>
+</html>
