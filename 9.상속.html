@@ -1,0 +1,136 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <meta http-equiv="X-UA-Compatible" content="IE=edge">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Document</title>
+</head>
+<body>
+  <script>
+    /* 
+      상속기능을 구현하는 ES5 방법)
+      부모가 가진 name,age를 그대로 물려받고싶으면?
+      1.생성자함수,프로토타입 => 옛날문법
+      2.Object.create(물려받을 부모 Object) => 요즘문법, ES5 방법
+
+    */
+
+    var 부모1 = {name : '김', age : 50};
+    var 자식1 = Object.create(부모1); // 프로토타입을 부모1로 해주세요~
+    console.log(자식1); // 비어있는 {}
+    console.log(자식1.name); // Kim , 부모 프로토타입에서 찾아옴
+
+    //자식의 age를 바꾸고 싶다면?
+    자식1.age = 20;
+    console.log(자식.age); // 20
+
+
+    var 손자 = Object.create(자식);
+    console.log(손자.name); // Kim
+    console.log(손자.age); // 20
+
+    
+    
+    /* 
+      상속기능을 구현하는 ES6 방법)
+      class의 키워드를 써서 constructor 만듬
+
+      함수를 추가하고 싶으면)
+      1.constructor에 추가하든가
+      2.constructor밑에 추가하든가
+      차이점 : 2번은 자식에게 물려주는게 아님.부모의 프로토타입에 추가됨.
+
+
+      부모의 프로토타입 출력하기)
+      1.자식.__proto__
+      2.Object.getPrototypeOf(자식)
+
+      
+    */
+
+    class 부모 {
+      constructor(name){
+        this.name = name,
+        this.age = 18,
+        this.sayHi1 = function(){
+          console.log("하이");
+        }
+      }
+
+      sayHi2(){
+        console.log("헬로");
+      }
+      sayHi3(){
+        console.log("하이 헬로");
+      }
+    }
+    
+    var 자식 = new 부모(name);
+    자식.__proto__; //부모의 프로토타입 출력됨
+    Object.getPrototypeOf(자식);
+
+
+    부모.prototype.sayHi4 = function(){};
+
+
+
+
+    /* 
+      이렇게 객체 지향 문법을 쓰는 이유)
+      1.Object를 쉽고 간단하게 여러개 만들어서 쓰려고,
+      부모 하나 만들어서 자식 여러개 만들기 
+    */
+
+
+
+
+    /* 
+      extends)
+      class의 상속.
+      유사한 class를 하나 더 만들고 싶을때 씀.
+      class내부에 상속할 내용이 너무 많을 때 extends를 사용하여 연장한다.
+
+      주의점)
+      extends해서 만든 class는 this를 그냥 못쓴다.
+      super() 다음에 써야함.
+
+    */
+
+    class 할아버지 {
+      constructor(name){
+        this.성 = '박';
+        this.이름 = name;
+      }
+      
+      sayhi(){
+        console.log('안녕 난 할아버지');
+      }
+    }
+
+    class 아버지 extends 할아버지 {
+      constructor(name){
+        super(name);
+        this.나이 = 50;
+      }
+
+      sayhi(){
+        console.log('안녕 나는 아버지');
+        super.sayhi();//부모의 프로토타입
+      }
+    }
+
+    var 아버지1 = new 아버지('만수');
+    아버지1.sayhi();
+
+    /* 
+      super의 또다른 용도)
+      1.constructor안에서 쓰면 부모 클래스의 constructor을 의미
+      2.constructor밖에서 쓰면 부보 클래스의 프로토타입을 의미
+
+    */
+    
+
+  </script>
+</body>
+</html>
