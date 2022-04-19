@@ -1,0 +1,37 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <meta http-equiv="X-UA-Compatible" content="IE=edge">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Document</title>
+</head>
+<body>
+  <script>
+    var pants = 20;
+    var socks = 100;
+
+    `바지 ${pants} 양말${socks}`;
+
+
+    // 문제 1
+    function 해체분석기(문자들,바지변수,양말변수){
+      console.log(문자들[1]+ 바지변수 + 문자들[0] + 양말변수);
+    }
+    해체분석기`바지 ${pants} 양말${socks}`;
+
+
+
+    // 문제 2
+    function 해체분석기2(문자열,바지변수,양말변수){
+      if(바지변수 == 0){
+        console.log(`바지 다 팔렸어요`);
+      }
+
+    }
+    해체분석기2`바지 ${pants} 양말${socks}`;
+
+  </script>
+  
+</body>
+</html>
