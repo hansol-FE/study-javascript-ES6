@@ -1,0 +1,36 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <meta http-equiv="X-UA-Compatible" content="IE=edge">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Document</title>
+</head>
+<body>
+  <script>
+    /* 
+      import/export를 이용한 파일간 모듈식 개발)
+
+      export default 내보낼거
+      import 가져올거(작명 가능) from '경로'
+
+      주의)
+      IE에서 안됨.
+      보통 프론트엔드 개발에서는 <script src="test.js">씁니다.
+      리액트,앵귤러 이런거쓸때 module사용
+
+      옛날방식)
+      var 임포트해온것들 = require('/test.js');
+    */
+
+  </script>
+
+<script type="module">
+    import 내맴대로,{a as 별명} from './test.js';
+    import * as 별명 from './test.js';
+
+    console.log(내맴대로); 
+
+  </script>
+</body>
+</html>
