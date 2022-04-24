@@ -1,0 +1,82 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <meta http-equiv="X-UA-Compatible" content="IE=edge">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Document</title>
+</head>
+<body>
+  <script>
+    //문제 1
+    function Parent(){
+      this.name = 'Kim';
+    }
+    var a = new Parent();
+
+    a.__proto__.name = 'Park';
+    console.log(a.name); //kim 이 출력됨
+
+    /* 
+      'Kim' 입니다.
+      첫 4줄에 의해서 a = { name : 'Kim' } 이 되고 
+      a.__proto__.name = 'Park'; 이건 부모 prototype에 { name : 'Park' } 이걸 추가하라는 뜻입니다.
+      그럼 이제 a.name 이라고 사용했을 때 
+      내가 직접 가지고 있는 { name : 'Kim' } 이걸 우선 출력해줍니다.
+    */
+
+    //문제2
+    function Student(이름, 나이){
+      this.name = 이름;
+      this.age = 나이;
+    }
+
+    Student.prototype.sayHi = () => {
+        console.log('안녕 나는 ' + this.name + '이야');
+      }
+    var 학생1 = new Student('Kim', 20);
+
+    학생1.sayHi(); //왜 이 코드가 제대로 안나오죠?
+
+    /* 
+      sayHi() 라는 함수를 prototype에 추가할 때 arrow function을 사용했습니다 .
+      결론부터 말하자면 arrow function은 그냥 일반 function 대체품이아닙니다.
+      arrow function은 this를 바깥에 있는 this를 그대로 사용하고 싶을 때 쓰는 함수라고 했었습니다. 
+      암튼 그런데 sayHi() 함수를 만들 때 arrow function을 사용해서
+      내부에 있던 this라는 값이 이상해진 것이었습니다. 
+    */
+
+
+
+    /* 
+      문제3
+      모든 array에 적용할 수 있는 함수를 직접 새로 만들려면 어떻게 해야할까요?
+      모든 array에 붙일 수 있는,
+      array 내에 있는 3이라는 값을 제거해주는 유용한 함수를 하나 만들고 싶습니다. 
+
+      var arr = [1,2,3];
+      arr.remove3();
+
+      console.log(arr); //[1,2]
+      
+      이렇게 array뒤에 붙이기만 하면 array 내의 3이라는 모든 숫자 자료들이 삭제됩니다. 
+      멋있게 이름은 remove3() 이라고 하겠습니다. 
+      remove3()함수는 어떻게, 어디에 만들어야 모든 array에 쓸 수 있을까요? 
+    */
+      var arr = [1,2,3];
+      arr.remove3();
+
+      console.log(arr); //[1,2]
+
+      Array.prototype.remove3 = function(){
+        for (var i = 0; i < this.length; i++) {
+          if ( this[i] === 3 ) {
+            this.splice(i,1);
+          }
+        }
+      };
+
+
+  </script>
+</body>
+</html>
