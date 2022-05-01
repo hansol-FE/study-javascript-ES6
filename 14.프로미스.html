@@ -1,0 +1,43 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <meta http-equiv="X-UA-Compatible" content="IE=edge">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Document</title>
+</head>
+<body>
+  <script>
+    /* 
+      프로미스)
+      콜백함수 만드는거랑 비슷한데 기능이 더많음
+      성공/실패 판정 기계
+      콜백함수 디자인의 대체품
+
+      3가지 상태)
+      1.성공하면 <resolved>
+      2.판정대기중이면 <pending>
+      3.실패하면 <rejected>
+
+    */
+
+    var 프로미스 = new Promise(function(resolve,reject){
+      //어려운 연산 중
+      
+      resolve(); //성공판정내리고 밑에 than 실행
+      reject(); //실패판정내리고 catch 실행
+    });
+    
+    프로미스.then(function(){
+      //프로미스가 성공일 경우 실행할 코드
+
+    }).then(function(){
+
+    }).catch(function(){
+      //실패할 경우 코드실행
+    }).finally(function(){
+      //성공하든 실패하든 
+    })
+  </script>
+</body>
+</html>
