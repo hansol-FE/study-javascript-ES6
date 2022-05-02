@@ -1,0 +1,61 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <meta http-equiv="X-UA-Compatible" content="IE=edge">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Document</title>
+</head>
+<body>
+  <script>
+    /* 
+      async/await)es8부터 제공
+      함수선언앞에 붙이는 키워드
+
+      async)
+      함수가 Promise역할 가능
+      함수 실행 후에 Promise 오브젝트가 남는다.
+
+      await)
+      async function안에서 쓰는 await
+      프로미스가 해결되기까지 기다려준다.
+      프로미스 실패시에는 에러나고 멈춤
+      방지하려면 try{이걸해보고 에러나면}cathch{이걸 실행하세요}
+     
+    */
+
+
+    async function 더하기(){
+      return 1+1;
+      //return Promise.reject('실패임');
+    }
+
+    더하기().then(function(결과){
+      console.log(결과);
+    })
+
+
+
+    async function 더하기1(){
+      var 프로미스 = new Promise(function(성공,실패){
+        var 힘든연산 = 1+1;
+        성공(100);
+        //실패(100)
+      });
+      
+      try{
+        var 결과 = await 프로미스;//프로미스가 해결되길 기다려주세요.
+        console.log(결과);
+      }catch{
+        console.log("프로미스 연산이 잘 안되었군요");
+      }
+
+     
+    }     
+
+
+
+
+  </script>
+</body>
+</html>
