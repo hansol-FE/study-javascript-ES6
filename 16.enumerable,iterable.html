@@ -1,0 +1,66 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <meta http-equiv="X-UA-Compatible" content="IE=edge">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Document</title>
+</head>
+<body>
+  <script>
+
+    /* 
+      자바스크립트 반복문 종류)
+      1.그냥 반복문
+      2.forEach() - Array전용
+      3.for in 반복문 - Object 전용, 
+        특징)
+        1. enumerable:true 한것만 반복해줌.(셀수있는지의 여부)
+        2. 부모의 프로토타입도 반복해준다.
+        3. Object 자료형에만 씀
+      4.for of 반복문 - iterable 전용
+        특징)
+        1.Array,문자,arguments,NodeList,Map,Set에서 쓰임
+        2.iterable한 자료형에만 사용가능
+
+
+      반복문 쓰는 용도)
+      1. 코드 여러번 실행할때
+      2. array,object에서 자료꺼내쓸때
+    
+    */
+
+    
+
+    var obj = { name : '김' , age : 30};
+    Object.getOwnPropertyDescriptor(obj,'name');//'김' 이외에도 3가지 정보가 더 있다.
+
+    for (var key in obj){
+      console.log(obj[key]);
+    }
+
+
+    class 부모{
+
+    }
+    부모.prototype.name = '박';
+    var obj2 = new 부모();
+    for (var key in obj2){
+      if(obj2.hasOwnProperty(key)){ // 상속받은거 말고 내가 직접 가지고 있는값만 반복시키고싶으면
+        console.log(obj[key]);
+      }
+    }
+
+
+    var array = [2,3,4,5];
+
+    for(var 자료 of array){
+      console.log(자료);
+
+    }
+
+    console.log(array[Symbol.iterator]());//여기에 잇으면 iterable한 자료형임
+  </script>
+  
+</body>
+</html>
