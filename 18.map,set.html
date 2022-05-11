@@ -1,0 +1,56 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <meta http-equiv="X-UA-Compatible" content="IE=edge">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Document</title>
+</head>
+<body>
+
+  <script>
+
+    /* 
+      Map)
+      자료간의 연관성을 표현하기 위해 씀.
+      object자료형은 자료 이름으로 글자만 가능했지만 map은 다 가능
+
+      Set)
+      중복을 허용하지않은 array 랑 비슷한것
+      set자료형 <=> Array자료형 , array의 중복자료를 제거하고 싶을때
+    */
+    var person = new Map();
+    person.set('name','kim');
+    person.set('age',20);
+    console.log(person);//{"name" => "kim" , "age" => 20}
+    person.set([1,2,3],20);
+    person.get("age");
+    person.delete("age");
+    person.size;
+
+    var person2 = new Map([
+      ['name', 'kim'],
+      ['age',20]
+    ])
+
+    for (var key of person.keys()){
+      console.log(key);
+    }
+
+
+
+
+    var 출석부 = ['존','톰','앤디','톰'];
+    var 출석부2 = new Set(['존','톰','앤디','톰']);
+    출석부.add('샐리');
+    출석부.has('톰');
+    출석부.delete('샐리');
+    출석부.size;
+
+    출석부 = [...출석부2]; // 중복제거한 array로 재탄생
+
+
+  </script>
+  
+</body>
+</html>
