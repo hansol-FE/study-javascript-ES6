@@ -1,1 +1,1 @@
-# study-javascript-ES6
+# javascript ES6 study
