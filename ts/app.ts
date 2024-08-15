@@ -1,31 +1,31 @@
-type Store = {
+interface Store {
   currentPage: number;
   feeds: NewsFeed[];
-};
+}
 
-type News = {
-  id: number;
-  time_ago: string;
-  title: string;
-  url: string;
-  user: string;
-  content: string;
-};
+interface News {
+  readonly id: number;
+  readonly time_ago: string;
+  readonly title: string;
+  readonly url: string;
+  readonly user: string;
+  readonly content: string;
+}
 
-type NewsFeed = News & {
-  comments_count: number;
-  points: number;
+interface NewsFeed extends News {
+  readonly comments_count: number;
+  readonly points: number;
   read?: boolean;
-};
+}
 
-type NewsDetail = News & {
-  comments: [];
-};
+interface NewsDetail extends News {
+  readonly comments: [];
+}
 
-type NewsComment = News & {
-  comments: [];
-  level: number;
-};
+interface NewsComment extends News {
+  readonly comments: [];
+  readonly level: number;
+}
 
 const ajax: XMLHttpRequest = new XMLHttpRequest(); // XHR
 
@@ -40,12 +40,54 @@ const store: Store = {
   feeds: [],
 };
 
-function getData<AjaxResponse>(url: string): AjaxResponse {
-  ajax.open("GET", url, false); // 동기적 처리
-  ajax.send();
+/**
+ * targetClass로 제공된 class에다가 baseClass들로 제공된 n개의 class들의 기능들을 합성시킨다.
+ *
+ * @param targetClass
+ * @param baseClasses
+ */
+function applyApiMixins(targetClass: any, baseClasses: any[]): void {
+  baseClasses.forEach((baseClass) => {
+    Object.getOwnPropertyNames(baseClass.prototype).forEach((name) => {
+      const descriptor = Object.getOwnPropertyDescriptor(
+        baseClass.prototype,
+        name
+      );
 
-  return JSON.parse(ajax.response); // JSON -> Object
+      if (descriptor) {
+        Object.defineProperty(targetClass.prototype, name, descriptor);
+      }
+    });
+  });
 }
+
+class Api {
+  getRequest<AjaxResponse>(url: string): AjaxResponse {
+    const ajax = new XMLHttpRequest();
+    ajax.open("GET", url, false); // 동기적 처리
+    ajax.send();
+
+    return JSON.parse(ajax.response); // JSON -> Object
+  }
+}
+
+class NewsFeedApi {
+  getData(): NewsFeed[] {
+    return this.getRequest<NewsFeed[]>(NEWS_URL);
+  }
+}
+
+class NewsDetailApi {
+  getData(id: string): NewsDetail {
+    return this.getRequest<NewsDetail>(CONTENT_URL.replace("@id", id));
+  }
+}
+
+interface NewsFeedApi extends Api {}
+interface NewsDetailApi extends Api {}
+
+applyApiMixins(NewsFeedApi, [Api]);
+applyApiMixins(NewsDetailApi, [Api]);
 
 function makeFeeds(feeds: NewsFeed[]): NewsFeed[] {
   for (let i = 0; i < feeds.length; i++) {
@@ -65,7 +107,7 @@ function updateView(html: string): void {
 
 function newsFeed(): void {
   let newsFeed: NewsFeed[] = store.feeds;
-  const newsList = [];
+  const newsList: string[] = [];
 
   let template = `
   <div class="bg-gray-600 min-h-screen">
@@ -93,7 +135,8 @@ function newsFeed(): void {
   `;
 
   if (newsFeed.length === 0) {
-    newsFeed = store.feeds = makeFeeds(getData<NewsFeed[]>(NEWS_URL));
+    const api = new NewsFeedApi();
+    newsFeed = store.feeds = makeFeeds(api.getData());
   }
 
   for (let i = (store.currentPage - 1) * 10; i < store.currentPage * 10; i++) {
@@ -137,8 +180,9 @@ function newsFeed(): void {
 
 function newsDetail(): void {
   const id = location.hash.substring(7);
+  const api = new NewsDetailApi();
+  const newsContent = api.getData(id);
 
-  const newsContent = getData<NewsDetail>(CONTENT_URL.replace("@id", id));
   let template = `
   <div class="bg-gray-600 min-h-screen pb-8">
       <div class="bg-white text-xl">
